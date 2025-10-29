@@ -51,10 +51,27 @@
         .image-container {
             position: relative;
             overflow: hidden;
+            /* Flex properties added to center image when using object-contain */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Minimum height for stable layout */
+            min-height: 16rem; /* h-64 equivalent */
         }
+        
+        @media (min-width: 768px) {
+            .image-container {
+                min-height: 20rem; /* md:h-80 equivalent for desktop */
+            }
+        }
+
 
         .image-container img {
             transition: transform 0.5s ease-in-out;
+            /* object-contain ensures the entire image is visible and not cut */
+            object-fit: contain; 
+            /* Added aspect ratio for better fluid sizing if needed */
+            aspect-ratio: 4/3; 
         }
 
         .image-container:hover img {
@@ -129,13 +146,13 @@
             <!-- Image 1 --><div class="image-container rounded-xl shadow-lg">
                 <!-- IMPORTANT: Using placeholder link for uploaded images as actual paths are restricted in this environment --><img src="sir.image.jpg"
                      onerror="this.onerror=null; this.src='https://placehold.co/800x600/800000/F3EFE0?text=Couple+Image+1'"
-                     class="w-full h-72 object-cover rounded-xl"
+                     class="w-full object-contain rounded-xl"
                      alt="Couple 1">
             </div>
             <!-- Image 2 --><div class="image-container rounded-xl shadow-lg">
                 <img src="sir.img2.jpg"
                      onerror="this.onerror=null; this.src='https://placehold.co/800x600/B8860B/FFFFFF?text=Couple+Image+2'"
-                     class="w-full h-72 object-cover rounded-xl"
+                     class="w-full object-contain rounded-xl"
                      alt="Couple 2">
             </div>
         </div>
@@ -166,7 +183,7 @@
                 <div class="p-4 border border-secondary-maroon/20 rounded-xl shadow-md">
                     <i data-lucide="calendar" class="w-8 h-8 mx-auto text-secondary-maroon mb-2"></i>
                     <p class="font-bold text-xl">Date</p>
-                    <p class="text-lg">November 23</p>
+                    <p class="text-lg">October 23</p>
                 </div>
 
                 <div class="p-4 border border-secondary-maroon/20 rounded-xl shadow-md">
@@ -208,13 +225,8 @@
 
         // Function to handle the 'Yes' click
         const handleYes = () => {
-            // 1. मुख्य गाना बजाओ/जारी रखो
-            mainSong.play().catch(error => {
-                console.warn("Audio Playback Error (user interaction needed):", error);
-                // वैकल्पिक: यदि ऑटो-प्ले ब्लॉक हो जाए तो एक छोटा संदेश दिखाएं
-                showTemporaryMessage("🎶 कृपया साउंड ऑन करें (Please turn on sound)! 🎶");
-            });
-
+            // 1. संगीत अब यहां नियंत्रित नहीं किया जा रहा है।
+            
             // 2. संदेश बॉक्स अपडेट करें
             messageBox.className = 'p-8 rounded-2xl mb-8 border-4 border-dashed border-primary-gold bg-yellow-50/70 shadow-lg';
             messageBox.innerHTML = `
@@ -235,14 +247,8 @@
 
         // Function to handle the 'No' click
         const handleNo = () => {
-            // 1. मुख्य गाना बजाओ/जारी रखो
-            // क्योंकि उपयोगकर्ता सिर्फ एक ही गाना चाहता है, हम सुनिश्चित करते हैं कि यह बज रहा है।
-            mainSong.play().catch(error => {
-                console.warn("Audio Playback Error (user interaction needed):", error);
-                // वैकल्पिक: यदि ऑटो-प्ले ब्लॉक हो जाए तो एक छोटा संदेश दिखाएं
-                showTemporaryMessage("🎶 कृपया साउंड ऑन करें (Please turn on sound)! 🎶");
-            });
-
+            // 1. संगीत अब यहां नियंत्रित नहीं किया जा रहा है।
+            
             // 2. संदेश बॉक्स अपडेट करें
             messageBox.className = 'p-8 rounded-2xl mb-8 border-4 border-dashed border-gray-400 bg-red-50/70 shadow-lg';
             messageBox.innerHTML = `
@@ -273,14 +279,22 @@
         }
 
         // --- ऑटोप्ले लॉजिक ---
-        // उपयोगकर्ता के अनुरोध के अनुसार, लोड होते ही संगीत को स्वचालित रूप से बजाने का प्रयास करें।
+        // अब गाना केवल लोड होते ही शुरू करने का प्रयास करेगा (जैसा कि उपयोगकर्ता चाहता है)।
         const attemptAutoplay = () => {
              mainSong.currentTime = 0; // शुरू से बजना सुनिश्चित करें
              mainSong.play().catch(error => {
-                console.info("Autoplay blocked. Music will start after user interaction.");
-                // यदि ऑटोप्ले ब्लॉक होता है, तो उपयोगकर्ता के RSVP क्लिक करने पर यह चलेगा।
+                console.info("Autoplay blocked. User needs to interact with the page to start music.");
+                // यदि ऑटोप्ले ब्लॉक होता है, तो उपयोगकर्ता को एक बार पेज पर क्लिक करना होगा।
+                showTemporaryMessage("please click on page");
             });
         };
+        
+        // एक बार जब उपयोगकर्ता पेज पर क्लिक करता है, तो संगीत शुरू कर दें
+        document.addEventListener('click', function musicStarter() {
+            attemptAutoplay();
+            // क्लिक करने के बाद इस लिसनर को हटा दें ताकि यह बार-बार न चले
+            document.removeEventListener('click', musicStarter);
+        });
 
         // इवेंट श्रोता
         yesButton.addEventListener('click', handleYes);
