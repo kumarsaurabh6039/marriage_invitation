@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Invitation | Wedding Invitation</title>
+    <!-- Tailwind CSS CDN for modern and responsive styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons for nice, clean icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Use a good font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Tailwind Configuration */
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-gold': '#B8860B',
+                        'secondary-maroon': '#800000',
+                        'bg-parchment': '#F3EFE0',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        cursive: ['"Great Vibes"', 'cursive'],
+                    },
+                }
+            }
+        }
+
+        /* Custom CSS for Animations and Background */
+        body {
+            background-color: #F3EFE0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 100 100" opacity="0.1"><rect width="100" height="100" fill="%23f3efe0"/><path d="M 0 0 L 100 100 M 100 0 L 0 100" stroke="%23B8860B" stroke-width="0.5"/></svg>');
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .invitation-card {
+            background: white;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            animation: fadeInScale 1.5s ease-out forwards;
+            overflow: hidden;
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .image-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-container img {
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .image-container:hover img {
+            transform: scale(1.05);
+        }
+
+        .rsvp-button {
+            transition: all 0.3s ease;
+            transform: perspective(1px) translateZ(0);
+            box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+        }
+
+        .rsvp-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .yes-button {
+             background-color: #800000;
+             color: white;
+        }
+        .yes-button:hover {
+             background-color: #B8860B;
+        }
+
+        .no-button {
+             background-color: #4B5563;
+             color: white;
+        }
+        .no-button:hover {
+             background-color: #6B7280;
+        }
+
+        /* Heart Animation for initial prompt */
+        .heart-beat {
+            animation: pulse 1s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
+        /* Modal for messages */
+        .modal {
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        /* Specific styles for responsive image grid */
+        @media (min-width: 768px) {
+            .image-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <!-- Audio elements (start with two for different responses) -->
+    <audio id="weddingSong" loop>
+        <!-- Replace this source with your actual wedding song URL if you have one. This is a placeholder. -->
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <audio id="sadSong" loop>
+        <!-- Replace this source with a sad/emotional song URL, as requested for 'No' -->
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+
+    <!-- Main Invitation Card -->
+    <div id="invitationCard" class="invitation-card w-full max-w-4xl mx-auto rounded-3xl shadow-2xl p-6 md:p-10">
+
+        <!-- Header -->
+        <header class="text-center mb-10">
+            <h1 class="font-cursive text-5xl md:text-7xl text-primary-gold mb-2 leading-tight">The Wedding Celebration</h1>
+            <p class="text-xl md:text-2xl text-secondary-maroon font-semibold tracking-widest border-b-2 border-primary-gold pb-2 inline-block">You are Cordially Invited</p>
+        </header>
+
+        <!-- Image Gallery -->
+        <div class="image-grid grid grid-cols-1 gap-4 mb-10 rounded-xl overflow-hidden">
+            <!-- Image 1 -->
+            <div class="image-container rounded-xl shadow-lg">
+                <!-- IMPORTANT: Using placeholder link for uploaded images as actual paths are restricted in this environment -->
+                <img src="sir.image.jpg"
+                     onerror="this.onerror=null; this.src='sir.image.jpg'"
+                     class="w-full h-72 object-cover rounded-xl"
+                     alt="Couple 1">
+            </div>
+            <!-- Image 2 -->
+            <div class="image-container rounded-xl shadow-lg">
+                <img src="sir.img2.jpg"
+                     onerror="this.onerror=null; this.src='sir.img2.jpg'"
+                     class="w-full h-72 object-cover rounded-xl"
+                     alt="Couple 2">
+            </div>
+        </div>
+
+        <!-- RSVP Prompt (Initial Screen) -->
+        <div id="rsvpPrompt" class="text-center p-6 bg-bg-parchment rounded-2xl shadow-inner border border-primary-gold/50">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6 flex justify-center items-center">
+                Are you coming to celebrate with us?
+                <i data-lucide="heart" class="w-8 h-8 text-secondary-maroon ml-3 heart-beat"></i>
+            </h2>
+            <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-8">
+                <button id="yesButton" class="rsvp-button yes-button px-8 py-3 rounded-full text-lg font-semibold shadow-xl flex items-center justify-center">
+                    <i data-lucide="check-circle" class="w-5 h-5 mr-2"></i> YES!
+                </button>
+                <button id="noButton" class="rsvp-button no-button px-8 py-3 rounded-full text-lg font-semibold shadow-xl flex items-center justify-center">
+                    <i data-lucide="x-circle" class="w-5 h-5 mr-2"></i> NO...
+                </button>
+            </div>
+        </div>
+
+        <!-- Content (Hidden until RSVP) -->
+        <div id="mainContent" class="hidden mt-10 text-center">
+
+            <!-- Welcome Message / Sad Message Container -->
+            <div id="messageBox" class="p-8 rounded-2xl mb-8 border-4 border-dashed">
+                <!-- Content will be inserted here by JavaScript -->
+            </div>
+
+            <!-- Event Details -->
+            <h3 class="text-4xl font-cursive text-primary-gold mb-6">Event Details</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-700">
+
+                <div class="p-4 border border-secondary-maroon/20 rounded-xl shadow-md">
+                    <i data-lucide="calendar" class="w-8 h-8 mx-auto text-secondary-maroon mb-2"></i>
+                    <p class="font-bold text-xl">Date</p>
+                    <p class="text-lg">February 08, 2026</p>
+                </div>
+
+                <div class="p-4 border border-secondary-maroon/20 rounded-xl shadow-md">
+                    <i data-lucide="clock" class="w-8 h-8 mx-auto text-secondary-maroon mb-2"></i>
+                    <p class="font-bold text-xl">Time</p>
+                    <p class="text-lg">Auspicious Time - 7:00 PM</p>
+                </div>
+
+                <div class="p-4 border border-secondary-maroon/20 rounded-xl shadow-md">
+                    <i data-lucide="map-pin" class="w-8 h-8 mx-auto text-secondary-maroon mb-2"></i>
+                    <p class="font-bold text-xl">Venue</p>
+                    <p class="text-lg">Park View Banquet Hall, New Delhi</p>
+                </div>
+
+            </div>
+            
+            <p class="mt-8 text-lg font-semibold text-secondary-maroon">Your presence is our greatest gift.</p>
+        </div>
+
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // DOM Elements
+        const yesButton = document.getElementById('yesButton');
+        const noButton = document.getElementById('noButton');
+        const rsvpPrompt = document.getElementById('rsvpPrompt');
+        const mainContent = document.getElementById('mainContent');
+        const messageBox = document.getElementById('messageBox');
+        const weddingSong = document.getElementById('weddingSong');
+        const sadSong = document.getElementById('sadSong');
+        
+        // Lucide icons setup (for dynamic content)
+        const renderIcons = () => {
+            lucide.createIcons();
+        };
+
+        // Function to handle the 'Yes' click
+        const handleYes = () => {
+            // 1. Play Wedding Song
+            sadSong.pause();
+            sadSong.currentTime = 0;
+            weddingSong.play().catch(error => {
+                console.warn("Audio Playback Error (user interaction needed):", error);
+                // Optional: Show a small message if auto-play is blocked
+                showTemporaryMessage("🎶 कृपया साउंड ऑन करें (Please turn on sound)! 🎶");
+            });
+
+            // 2. Update Message Box (Heartly Welcome, Quotes in Marathi)
+            messageBox.className = 'p-8 rounded-2xl mb-8 border-4 border-dashed border-primary-gold bg-yellow-50/70 shadow-lg';
+            messageBox.innerHTML = `
+                <h3 class="text-4xl md:text-5xl font-cursive text-primary-gold mb-4 animate-bounce">HEARTILY WELCOME!</h3>
+                <p class="text-xl text-gray-800 font-semibold mb-3">A Warm Welcome!</p>
+                <i data-lucide="heart" class="w-12 h-12 text-secondary-maroon mx-auto mb-4 animate-ping"></i>
+                <p class="text-lg italic text-gray-600">"आयुष्याच्या या नवीन प्रवासाला सुरुवात करताना, तुमचे आशीर्वाद सोबत असू द्या."</p>
+                <p class="text-lg italic text-gray-600">"जिथे प्रेम आहे, तिथे जीवन आहे."</p>
+            `;
+
+            // 3. Show Main Content
+            rsvpPrompt.classList.add('hidden');
+            mainContent.classList.remove('hidden');
+            
+            // Re-render icons after adding new content
+            renderIcons();
+        };
+
+        // Function to handle the 'No' click
+        const handleNo = () => {
+            // 1. Play Sad Song
+            weddingSong.pause();
+            weddingSong.currentTime = 0;
+            sadSong.play().catch(error => {
+                console.warn("Audio Playback Error (user interaction needed):", error);
+                // Optional: Show a small message if auto-play is blocked
+                showTemporaryMessage("🎶 कृपया साउंड ऑन करें (Please turn on sound)! 🎶");
+            });
+
+            // 2. Update Message Box (Sad Emoji, Quote in Marathi)
+            messageBox.className = 'p-8 rounded-2xl mb-8 border-4 border-dashed border-gray-400 bg-red-50/70 shadow-lg';
+            messageBox.innerHTML = `
+                <div class="text-6xl mb-4 animate-shake">😢</div>
+                <h3 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">We will miss you!</h3>
+                <p class="text-xl text-red-600 font-semibold mb-3">Since you can't attend...</p>
+                <p class="text-lg italic text-gray-600">"वाट बघेन मी तुझी... पुन्हा भेटूया लवकरच."</p>
+                <p class="text-lg italic text-gray-600 mt-2">Your absence will be felt.</p>
+            `;
+
+            // 3. Show Main Content
+            rsvpPrompt.classList.add('hidden');
+            mainContent.classList.remove('hidden');
+
+            // Re-render icons after adding new content
+            renderIcons();
+        };
+        
+        // A simple function to show a temporary message (instead of alert)
+        const showTemporaryMessage = (message) => {
+            const tempDiv = document.createElement('div');
+            tempDiv.className = 'fixed top-4 left-1/2 transform -translate-x-1/2 p-3 bg-secondary-maroon text-white font-semibold rounded-lg shadow-2xl z-50 animate-pulse';
+            tempDiv.textContent = message;
+            document.body.appendChild(tempDiv);
+            setTimeout(() => {
+                tempDiv.remove();
+            }, 3000); // Message disappears after 3 seconds
+        }
+
+        // Event Listeners
+        yesButton.addEventListener('click', handleYes);
+        noButton.addEventListener('click', handleNo);
+
+        // Initial icon rendering
+        window.onload = () => {
+             renderIcons();
+        };
+    </script>
+
+</body>
+</html>
