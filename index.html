@@ -113,16 +113,10 @@
 </head>
 <body class="p-4 md:p-8">
 
-    <!-- Audio elements (start with two for different responses) --><audio id="weddingSong" loop>
-        <!-- Replace this source with your actual wedding song URL if you have one. This is a placeholder. --><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+    <!-- नया ऑडियो तत्व: अब केवल एक ही गाना है जो ऑटोप्ले और लूप पर सेट है --><audio id="mainSong" loop>
+        <!-- आपके द्वारा अटैच किया गया संगीत ('sir.music.mp3') --><source src="sir.music.mp3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
-
-    <audio id="sadSong" loop>
-        <!-- Replace this source with a sad/emotional song URL, as requested for 'No' --><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mp3">
-        Your browser does not support the audio element.
-    </audio>
-
 
     <!-- Main Invitation Card --><div id="invitationCard" class="invitation-card w-full max-w-4xl mx-auto rounded-3xl shadow-2xl p-6 md:p-10">
 
@@ -172,7 +166,7 @@
                 <div class="p-4 border border-secondary-maroon/20 rounded-xl shadow-md">
                     <i data-lucide="calendar" class="w-8 h-8 mx-auto text-secondary-maroon mb-2"></i>
                     <p class="font-bold text-xl">Date</p>
-                    <p class="text-lg">October 23</p>
+                    <p class="text-lg">November 23</p>
                 </div>
 
                 <div class="p-4 border border-secondary-maroon/20 rounded-xl shadow-md">
@@ -203,8 +197,9 @@
         const rsvpPrompt = document.getElementById('rsvpPrompt');
         const mainContent = document.getElementById('mainContent');
         const messageBox = document.getElementById('messageBox');
-        const weddingSong = document.getElementById('weddingSong');
-        const sadSong = document.getElementById('sadSong');
+        
+        // अब सिर्फ एक ही मुख्य गाना है
+        const mainSong = document.getElementById('mainSong');
         
         // Lucide icons setup (for dynamic content)
         const renderIcons = () => {
@@ -213,16 +208,14 @@
 
         // Function to handle the 'Yes' click
         const handleYes = () => {
-            // 1. Play Wedding Song
-            sadSong.pause();
-            sadSong.currentTime = 0;
-            weddingSong.play().catch(error => {
+            // 1. मुख्य गाना बजाओ/जारी रखो
+            mainSong.play().catch(error => {
                 console.warn("Audio Playback Error (user interaction needed):", error);
-                // Optional: Show a small message if auto-play is blocked
+                // वैकल्पिक: यदि ऑटो-प्ले ब्लॉक हो जाए तो एक छोटा संदेश दिखाएं
                 showTemporaryMessage("🎶 कृपया साउंड ऑन करें (Please turn on sound)! 🎶");
             });
 
-            // 2. Update Message Box (Heartly Welcome, Quotes in Marathi)
+            // 2. संदेश बॉक्स अपडेट करें
             messageBox.className = 'p-8 rounded-2xl mb-8 border-4 border-dashed border-primary-gold bg-yellow-50/70 shadow-lg';
             messageBox.innerHTML = `
                 <h3 class="text-4xl md:text-5xl font-cursive text-primary-gold mb-4 animate-bounce">HEARTILY WELCOME!</h3>
@@ -232,26 +225,25 @@
                 <p class="text-lg italic text-gray-600">"जिथे प्रेम आहे, तिथे जीवन आहे."</p>
             `;
 
-            // 3. Show Main Content
+            // 3. मुख्य सामग्री दिखाएं
             rsvpPrompt.classList.add('hidden');
             mainContent.classList.remove('hidden');
             
-            // Re-render icons after adding new content
+            // नए कंटेंट के बाद आइकॉन को फिर से रेंडर करें
             renderIcons();
         };
 
         // Function to handle the 'No' click
         const handleNo = () => {
-            // 1. Play Sad Song
-            weddingSong.pause();
-            weddingSong.currentTime = 0;
-            sadSong.play().catch(error => {
+            // 1. मुख्य गाना बजाओ/जारी रखो
+            // क्योंकि उपयोगकर्ता सिर्फ एक ही गाना चाहता है, हम सुनिश्चित करते हैं कि यह बज रहा है।
+            mainSong.play().catch(error => {
                 console.warn("Audio Playback Error (user interaction needed):", error);
-                // Optional: Show a small message if auto-play is blocked
+                // वैकल्पिक: यदि ऑटो-प्ले ब्लॉक हो जाए तो एक छोटा संदेश दिखाएं
                 showTemporaryMessage("🎶 कृपया साउंड ऑन करें (Please turn on sound)! 🎶");
             });
 
-            // 2. Update Message Box (Sad Emoji, Quote in Marathi)
+            // 2. संदेश बॉक्स अपडेट करें
             messageBox.className = 'p-8 rounded-2xl mb-8 border-4 border-dashed border-gray-400 bg-red-50/70 shadow-lg';
             messageBox.innerHTML = `
                 <div class="text-6xl mb-4 animate-shake">😢</div>
@@ -261,15 +253,15 @@
                 <p class="text-lg italic text-gray-600 mt-2">Your absence will be felt.</p>
             `;
 
-            // 3. Show Main Content
+            // 3. मुख्य सामग्री दिखाएं
             rsvpPrompt.classList.add('hidden');
             mainContent.classList.remove('hidden');
 
-            // Re-render icons after adding new content
+            // नए कंटेंट के बाद आइकॉन को फिर से रेंडर करें
             renderIcons();
         };
         
-        // A simple function to show a temporary message (instead of alert)
+        // एक अस्थायी संदेश दिखाने के लिए फ़ंक्शन (अलर्ट के बजाय)
         const showTemporaryMessage = (message) => {
             const tempDiv = document.createElement('div');
             tempDiv.className = 'fixed top-4 left-1/2 transform -translate-x-1/2 p-3 bg-secondary-maroon text-white font-semibold rounded-lg shadow-2xl z-50 animate-pulse';
@@ -277,16 +269,27 @@
             document.body.appendChild(tempDiv);
             setTimeout(() => {
                 tempDiv.remove();
-            }, 3000); // Message disappears after 3 seconds
+            }, 3000); // संदेश 3 सेकंड के बाद गायब हो जाता है
         }
 
-        // Event Listeners
+        // --- ऑटोप्ले लॉजिक ---
+        // उपयोगकर्ता के अनुरोध के अनुसार, लोड होते ही संगीत को स्वचालित रूप से बजाने का प्रयास करें।
+        const attemptAutoplay = () => {
+             mainSong.currentTime = 0; // शुरू से बजना सुनिश्चित करें
+             mainSong.play().catch(error => {
+                console.info("Autoplay blocked. Music will start after user interaction.");
+                // यदि ऑटोप्ले ब्लॉक होता है, तो उपयोगकर्ता के RSVP क्लिक करने पर यह चलेगा।
+            });
+        };
+
+        // इवेंट श्रोता
         yesButton.addEventListener('click', handleYes);
         noButton.addEventListener('click', handleNo);
 
-        // Initial icon rendering
+        // प्रारंभिक आइकॉन रेंडरिंग और ऑटोप्ले प्रयास
         window.onload = () => {
              renderIcons();
+             attemptAutoplay(); // लोड होते ही संगीत शुरू करने का प्रयास करें
         };
     </script>
 
