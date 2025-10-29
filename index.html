@@ -3,13 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Invitation | Wedding Invitation</title>
-    <!-- Tailwind CSS CDN for modern and responsive styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Lucide Icons for nice, clean icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Use a good font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Great+Vibes&display=swap" rel="stylesheet">
+    <title>Shivkumar & Vanishri's Wedding Invitation</title>
+    <!-- Tailwind CSS CDN for modern and responsive styling --><script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons for nice, clean icons --><script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Use a good font --><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Great+Vibes&display=swap" rel="stylesheet">
     <style>
         /* Custom Tailwind Configuration */
         tailwind.config = {
@@ -116,50 +113,40 @@
 </head>
 <body class="p-4 md:p-8">
 
-    <!-- Audio elements (start with two for different responses) -->
-    <audio id="weddingSong" loop>
-        <!-- Replace this source with your actual wedding song URL if you have one. This is a placeholder. -->
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+    <!-- Audio elements (start with two for different responses) --><audio id="weddingSong" loop>
+        <!-- Replace this source with your actual wedding song URL if you have one. This is a placeholder. --><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
 
     <audio id="sadSong" loop>
-        <!-- Replace this source with a sad/emotional song URL, as requested for 'No' -->
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mp3">
+        <!-- Replace this source with a sad/emotional song URL, as requested for 'No' --><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
 
 
-    <!-- Main Invitation Card -->
-    <div id="invitationCard" class="invitation-card w-full max-w-4xl mx-auto rounded-3xl shadow-2xl p-6 md:p-10">
+    <!-- Main Invitation Card --><div id="invitationCard" class="invitation-card w-full max-w-4xl mx-auto rounded-3xl shadow-2xl p-6 md:p-10">
 
-        <!-- Header -->
-        <header class="text-center mb-10">
-            <h1 class="font-cursive text-5xl md:text-7xl text-primary-gold mb-2 leading-tight">The Wedding Celebration</h1>
+        <!-- Header --><header class="text-center mb-10">
+            <h1 class="font-cursive text-5xl md:text-7xl text-primary-gold mb-2 leading-tight">Shivkumar <span class="text-secondary-maroon">&</span> Vanishri</h1>
             <p class="text-xl md:text-2xl text-secondary-maroon font-semibold tracking-widest border-b-2 border-primary-gold pb-2 inline-block">You are Cordially Invited</p>
         </header>
 
-        <!-- Image Gallery -->
-        <div class="image-grid grid grid-cols-1 gap-4 mb-10 rounded-xl overflow-hidden">
-            <!-- Image 1 -->
-            <div class="image-container rounded-xl shadow-lg">
-                <!-- IMPORTANT: Using placeholder link for uploaded images as actual paths are restricted in this environment -->
-                <img src="sir.image.jpg"
-                     onerror="this.onerror=null; this.src='sir.image.jpg'"
+        <!-- Image Gallery --><div class="image-grid grid grid-cols-1 gap-4 mb-10 rounded-xl overflow-hidden">
+            <!-- Image 1 --><div class="image-container rounded-xl shadow-lg">
+                <!-- IMPORTANT: Using placeholder link for uploaded images as actual paths are restricted in this environment --><img src="sir.image.jpg"
+                     onerror="this.onerror=null; this.src='https://placehold.co/800x600/800000/F3EFE0?text=Couple+Image+1'"
                      class="w-full h-72 object-cover rounded-xl"
                      alt="Couple 1">
             </div>
-            <!-- Image 2 -->
-            <div class="image-container rounded-xl shadow-lg">
+            <!-- Image 2 --><div class="image-container rounded-xl shadow-lg">
                 <img src="sir.img2.jpg"
-                     onerror="this.onerror=null; this.src='sir.img2.jpg'"
+                     onerror="this.onerror=null; this.src='https://placehold.co/800x600/B8860B/FFFFFF?text=Couple+Image+2'"
                      class="w-full h-72 object-cover rounded-xl"
                      alt="Couple 2">
             </div>
         </div>
 
-        <!-- RSVP Prompt (Initial Screen) -->
-        <div id="rsvpPrompt" class="text-center p-6 bg-bg-parchment rounded-2xl shadow-inner border border-primary-gold/50">
+        <!-- RSVP Prompt (Initial Screen) --><div id="rsvpPrompt" class="text-center p-6 bg-bg-parchment rounded-2xl shadow-inner border border-primary-gold/50">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6 flex justify-center items-center">
                 Are you coming to celebrate with us?
                 <i data-lucide="heart" class="w-8 h-8 text-secondary-maroon ml-3 heart-beat"></i>
@@ -174,34 +161,32 @@
             </div>
         </div>
 
-        <!-- Content (Hidden until RSVP) -->
-        <div id="mainContent" class="hidden mt-10 text-center">
+        <!-- Content (Hidden until RSVP) --><div id="mainContent" class="hidden mt-10 text-center">
 
-            <!-- Welcome Message / Sad Message Container -->
-            <div id="messageBox" class="p-8 rounded-2xl mb-8 border-4 border-dashed">
-                <!-- Content will be inserted here by JavaScript -->
-            </div>
+            <!-- Welcome Message / Sad Message Container --><div id="messageBox" class="p-8 rounded-2xl mb-8 border-4 border-dashed">
+                <!-- Content will be inserted here by JavaScript --></div>
 
-            <!-- Event Details -->
-            <h3 class="text-4xl font-cursive text-primary-gold mb-6">Event Details</h3>
+            <!-- Event Details --><h3 class="text-4xl font-cursive text-primary-gold mb-6">Event Details</h3>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-700">
 
                 <div class="p-4 border border-secondary-maroon/20 rounded-xl shadow-md">
                     <i data-lucide="calendar" class="w-8 h-8 mx-auto text-secondary-maroon mb-2"></i>
                     <p class="font-bold text-xl">Date</p>
-                    <p class="text-lg">February 08, 2026</p>
+                    <p class="text-lg">October 23</p>
                 </div>
 
                 <div class="p-4 border border-secondary-maroon/20 rounded-xl shadow-md">
                     <i data-lucide="clock" class="w-8 h-8 mx-auto text-secondary-maroon mb-2"></i>
                     <p class="font-bold text-xl">Time</p>
-                    <p class="text-lg">Auspicious Time - 7:00 PM</p>
+                    <p class="text-lg">12:25 PM</p>
                 </div>
 
                 <div class="p-4 border border-secondary-maroon/20 rounded-xl shadow-md">
                     <i data-lucide="map-pin" class="w-8 h-8 mx-auto text-secondary-maroon mb-2"></i>
                     <p class="font-bold text-xl">Venue</p>
-                    <p class="text-lg">Park View Banquet Hall, New Delhi</p>
+                    <p class="text-lg">Jagdish Shri Mangal Karyalay,</p>
+                    <p class="text-lg">Old Santosh Nagar, Konark Nagar,</p>
+                    <p class="text-lg">Bijapur Road, Solapur.</p>
                 </div>
 
             </div>
@@ -211,8 +196,7 @@
 
     </div>
 
-    <!-- JavaScript Logic -->
-    <script>
+    <!-- JavaScript Logic --><script>
         // DOM Elements
         const yesButton = document.getElementById('yesButton');
         const noButton = document.getElementById('noButton');
